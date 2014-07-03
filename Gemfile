@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'rspec-rails'
 gem 'shoulda-matchers'
+gem 'factory_girl_rails'
 gem 'awesome_print'
 gem 'pry-rails'
 
