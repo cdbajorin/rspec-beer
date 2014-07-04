@@ -1,0 +1,12 @@
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Location</th>
+  </thead>
+  <% @breweries.each do |brewery| %>
+  <tbody>
+    <td><%= link_to brewery.name, brewery_path(brewery) %></td>
+    <td><%= brewery.location %></td>
+  </tbody>
+  <%end%>
+</table>

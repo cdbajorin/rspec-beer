@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+# some excessive testing and reduntant tests
+# for the purpose of using differing syntax
+
 describe BreweriesController do
   before(:each) do
     @brewery = FactoryGirl.create(:brewery)
@@ -69,7 +72,7 @@ describe BreweriesController do
       post :create, brewery: brewery_attrs
     end
 
-    context "valid params" do
+    context "valid attributes" do
       it "should respond with an HTTP 302 status code" do
         expect(response.status).to eq(302)
       end

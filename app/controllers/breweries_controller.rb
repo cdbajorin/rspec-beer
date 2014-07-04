@@ -10,23 +10,21 @@ class BreweriesController < ApplicationController
   end
 
   def create
-    @brewery = Brewery.new({
-      name: params[:brewery][:name],
-      location: params[:brewery][:location]
-    })
-
+    @brewery = Brewery.new(brewery_params)
     respond_with @brewery do |format|
       if @brewery.save
         flash[:notice] = "Brewery Created"
         format.html { redirect_to @brewery }
-      # else
-      #   format.html { render :new }
+      else
+      flash[:notice] = "Invalid Entry"
+      format.html { render :new }
       end
     end
   end
 
   def show
     @brewery = Brewery.find(params[:id])
+    @beers = @brewery.beers
   end
 
   def edit
@@ -35,10 +33,7 @@ class BreweriesController < ApplicationController
 
   def update
     @brewery = Brewery.find(params[:id])
-    @brewery.update({
-      name: params[:brewery][:name],
-      location: params[:brewery][:location]
-    })
+    @brewery.update(brewery_params)
     redirect_to @brewery
   end
 
@@ -46,6 +41,12 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.find(params[:id])
     @brewery.destroy
     redirect_to breweries_path
+  end
+
+  private
+
+  def brewery_params
+    params.require(:brewery).permit(:name, :location)
   end
 
 end
