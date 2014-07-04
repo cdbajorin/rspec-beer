@@ -13,7 +13,8 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.new({
       name: params[:brewery][:name],
       location: params[:brewery][:location]
-      })
+    })
+
     respond_with @brewery do |format|
       if @brewery.save
         flash[:notice] = "Brewery Created"
@@ -25,6 +26,11 @@ class BreweriesController < ApplicationController
   end
 
   def show
+    @brewery = Brewery.find(params[:id])
+  end
+
+  def edit
+    @brewery = Brewery.find(params[:id])
   end
 
 end
