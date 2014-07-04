@@ -33,4 +33,19 @@ class BreweriesController < ApplicationController
     @brewery = Brewery.find(params[:id])
   end
 
+  def update
+    @brewery = Brewery.find(params[:id])
+    @brewery.update({
+      name: params[:brewery][:name],
+      location: params[:brewery][:location]
+    })
+    redirect_to @brewery
+  end
+
+  def destroy
+    @brewery = Brewery.find(params[:id])
+    @brewery.destroy
+    redirect_to breweries_path
+  end
+
 end

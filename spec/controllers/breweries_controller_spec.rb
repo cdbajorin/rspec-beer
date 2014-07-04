@@ -70,12 +70,12 @@ describe BreweriesController do
     end
 
     context "valid params" do
-      it "should redirect to #show" do
-        expect(response).to redirect_to(assigns[:brewery])
-      end
-
       it "should respond with an HTTP 302 status code" do
         expect(response.status).to eq(302)
+      end
+
+      it "should redirect to #show" do
+        expect(response).to redirect_to(assigns[:brewery])
       end
     end
   end
@@ -97,7 +97,53 @@ describe BreweriesController do
     it "assigns the request brewery to @brewery" do
       expect(assigns(:brewery)).to eq(@brewery)
     end
+  end
 
+  describe "PUT #update" do
+    context "valid attributes" do
+      it "should locate the requested @brewery" do
+        put :update, id: @brewery, brewery: @brewery.attributes
+        expect(assigns(:brewery)).to eq(@brewery)
+      end
+
+      it "should respond with an HTTP 302 status code" do
+        put :update, id: @brewery, brewery: @brewery.attributes
+        expect(response.status).to eq(302)
+      end
+
+      it "should redirect to the 'show' template" do
+        put :update, id: @brewery, brewery: @brewery.attributes
+        expect(response).to redirect_to(assigns(:brewery))
+      end
+
+      it "should change @brewery's attributes" do
+        put :update, id: @brewery, brewery: { name: "New Brewery", location: "New York" }
+        @brewery.reload
+        expect(@brewery.name).to eq("New Brewery")
+        expect(@brewery.location).to eq("New York")
+      end
+    end
+  end
+
+  describe  "DELETE #destroy" do
+    before(:each) do
+      delete :destroy, id: @brewery
+    end
+    it "should locate the requested @brewery" do
+      expect(assigns(:brewery)).to eq(@brewery)
+    end
+
+    it "should remove the requested @brewery" do
+      expect(Brewery.where(id: @brewery)).not_to exist
+    end
+
+    it "should respond with an HTTP 302 status code" do
+    expect(response.status).to eq(302)
+    end
+
+    it "should redirect to the 'index' template" do
+      expect(response).to redirect_to(breweries_path)
+    end
   end
 
 end
