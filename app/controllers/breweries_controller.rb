@@ -1,5 +1,7 @@
 class BreweriesController < ApplicationController
 
+  respond_to :html
+
   def index
     @breweries = Brewery.all
   end
@@ -8,8 +10,18 @@ class BreweriesController < ApplicationController
   end
 
   def create
-    Brewery.create(params)
-    redirect_to brewery_path(params[:id])
+    @brewery = Brewery.new({
+      name: params[:brewery][:name],
+      location: params[:brewery][:location]
+      })
+    respond_with @brewery do |format|
+      if @brewery.save
+        flash[:notice] = "Brewery Created"
+        format.html { redirect_to @brewery }
+      # else
+      #   format.html { render :new }
+      end
+    end
   end
 
   def show

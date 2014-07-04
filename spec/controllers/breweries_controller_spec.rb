@@ -5,6 +5,8 @@ describe BreweriesController do
     @brewery = FactoryGirl.create(:brewery)
   end
 
+  ###############
+
   describe "GET #index" do
     it "should respond with an HTTP 200 status code" do
       get :index
@@ -22,16 +24,21 @@ describe BreweriesController do
     end
   end
 
+  ##################
+
   describe "GET #new" do
     it "should respond with an HTTP 200 status code" do
       get :new
       expect(response.status).to eq(200)
     end
+
     it "should render the 'new' template" do
       get :new
       expect(response).to render_template("new")
     end
   end
+
+  #################
 
   describe "GET #show" do
     it "should respond with an HTTP 200 status code" do
@@ -50,16 +57,32 @@ describe BreweriesController do
     end
   end
 
+  ##################
+
   describe "POST #create" do
-    it "should redirect to #show" do
-      post :create, id: @brewery.id
-      expect(response).to redirect_to(brewery_path(@brewery.id))
+    brewery_attrs = FactoryGirl.attributes_for(:brewery)
+    context "valid params" do
+      it "should redirect to #show" do
+        post :create, brewery: brewery_attrs
+        expect(response).to redirect_to(assigns[:brewery])
+      end
+
+      it "should respond with an HTTP 302 status code" do
+        post :create, brewery: brewery_attrs
+        expect(response.status).to eq(302)
+      end
+    end
+  end
+
+  ##################
+
+  describe "GET #edit" do
+    it "should respond with an HTTP 200 status code" do
+      pending "waiting for create redirect to work"
+      get :edit
+      expect(response.status).to eq(200)
     end
 
-    it "should respond with an HTTP 302 status code" do
-      post :create, id: @brewery.id
-      expect(response.status).to eq(302)
-    end
   end
 
 end
