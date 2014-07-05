@@ -15,9 +15,9 @@ class BreweriesController < ApplicationController
       if @brewery.save
         flash[:notice] = "Brewery Created"
         format.html { redirect_to @brewery }
-      else
-      flash[:notice] = "Invalid Entry"
-      format.html { render :new }
+      # else
+      # flash[:notice] = "Invalid Entry"
+      # format.html { render :new }
       end
     end
   end

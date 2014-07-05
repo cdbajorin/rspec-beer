@@ -1,11 +1,12 @@
 require 'spec_helper'
 
-# some excessive testing and reduntant tests
+# some of the tests are excessive/redundant
 # for the purpose of using differing syntax
 
 describe BreweriesController do
   before(:each) do
-    @brewery = FactoryGirl.create(:brewery)
+    @brewery = FactoryGirl.create(:brewery_with_beers)
+    @beers = @brewery.beers
   end
 
   ###############
@@ -62,6 +63,10 @@ describe BreweriesController do
     it "assigns the requested brewery to @brewery" do
       expect(assigns(:brewery)).to eq(@brewery)
     end
+
+    it "assigns the requested beers to @beers" do
+      expect(assigns(:beers)).to eq(@beers)
+    end
   end
 
   ##################
@@ -89,6 +94,7 @@ describe BreweriesController do
     before(:each) do
       get :edit, id: @brewery.to_param
     end
+
     it "should respond with an HTTP 200 status code" do
       expect(response.status).to eq(200)
     end
@@ -101,6 +107,8 @@ describe BreweriesController do
       expect(assigns(:brewery)).to eq(@brewery)
     end
   end
+
+  ###################
 
   describe "PUT #update" do
     context "valid attributes" do
@@ -128,10 +136,13 @@ describe BreweriesController do
     end
   end
 
+  ####################
+
   describe  "DELETE #destroy" do
     before(:each) do
       delete :destroy, id: @brewery
     end
+
     it "should locate the requested @brewery" do
       expect(assigns(:brewery)).to eq(@brewery)
     end
@@ -148,5 +159,4 @@ describe BreweriesController do
       expect(response).to redirect_to(breweries_path)
     end
   end
-
 end

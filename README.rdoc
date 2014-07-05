@@ -1,6 +1,6 @@
 == README
 
-A basic CRUD app using rails and testing with rspec.
+A basic CRUD app to practice rspec prior to updating beer-tour
 
 
 ==== versions
